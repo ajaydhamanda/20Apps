@@ -1,12 +1,23 @@
-user_prompt = "Enter an element to add to your to-do list:"
 
+user_prompt = "Type enter add, show or exit : "
 todos = []
-
 while True:
-    todo = input(user_prompt)
-    print(todo.title())
-    todos.append(todo)
-    print(todos)
+    action = input(user_prompt)
+    action = action.strip()
+
+    match action:
+        case 'add':
+            todo = input("Enter an item to add to your to do list: ")
+            todos.append(todo)
+            print(todos)
+        case  'show':
+            for item in todos:
+                print(todos)
+        case 'exit':
+            break
+
+
+print("Here is your to-do list! Do visit again.")
 
 
 
