@@ -13,3 +13,24 @@ while True:
     print(countries)
 
 '''
+'''
+meals = ['chocolate', 'noodles', 'salad']
+    for meals in meals:
+    print (meal.capitalize())'''
+
+'''names = ["john smith", "sen plakay", "dora ngacely"]
+
+for items in names:
+    print(items.title())
+''''''
+items = ['raw food', 'raw meat', 'raw fish']
+for item in items:
+    item = item.replace('raw', 'No.')
+    print(item)
+'''
+'''
+elements = ['a', 'b', 'c']
+new = 'x'
+elements[1] = new
+print(elements)
+'''
