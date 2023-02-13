@@ -34,3 +34,11 @@ new = 'x'
 elements[1] = new
 print(elements)
 '''
+'''
+waiting_list = ['Abc', 'Gedf', 'Hname3', 'ZnZame4', 'name']
+waiting_list.sort()
+for index, item in enumerate(waiting_list):
+    row = f"{index}.{item.capitalize()}"
+    print(row)
+    
+'''
