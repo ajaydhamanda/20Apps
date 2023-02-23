@@ -46,6 +46,4 @@ while True:
         full_operation = []
         window['text'].update('')
 
-
-
 window.close()
