@@ -1,52 +1,65 @@
-import tkinter as tk
-import subprocess
-import todolist
+import functions
+import PySimpleGUI as sg
+import time
 
+sg.theme("Default")
 
-class TodoList:
-    def __init__(self, master):
-        self.master = master
-        self.master.title("To-Do List")
-# Define function to start the CLI program
-def start_todo():
-    subprocess.Popen(["python", "todolist.py"])
+clock = sg.Text('', key='clock')
+label = sg.Text("Type something to add to your To-Do list...")
+input_box = sg.InputText(tooltip="Enter a To-do", key="todo")
+add_button = sg.Button("Add", size=8)
+list_box = sg.Listbox(values=functions.get_todos(), key='todos',
+                      enable_events=True, size=[45, 10])
+edit_button = sg.Button("Edit")
+complete_button = sg.Button("Complete")
+exit_button = sg.Button("Exit")
 
-# Create a GUI window
-window = tk.Tk()
-window.title("Todo List")
+window = sg.Window('My To-Do App',
+                   layout=[[clock],
+                           [label],
+                           [input_box, add_button],
+                           [list_box, edit_button, complete_button],
+                           [exit_button]],
+                   font=('Cooper Black', 16))
 
-# Create a frame for the todo list
-list_frame = tk.Frame(window)
-list_frame.pack(side=tk.LEFT, padx=10, pady=10)
+while True:
+    event, values = window.read(timeout=200)
+    window["clock"].update(value=time.strftime("%b %d, %Y %H:%M"))
+    match event:
+        case "Add":
+            todos = functions.get_todos()
+            new_todo = values['todo'] + "\n"
+            todos.append(new_todo)
+            functions.write_todos(todos)
+            window['todos'].update(values=todos)
 
-# Create a label for the todo list
-list_label = tk.Label(list_frame, text="Todo List", font=("Arial", 14))
-list_label.pack(side=tk.TOP)
+        case "Edit":
+            try:
+                todo_to_edit = values['todos'][0]
+                new_todo = values['todo']
 
-# Create a text box for the todo list
-list_box = tk.Text(list_frame, height=20, width=40)
-list_box.pack(side=tk.TOP)
+                todos = functions.get_todos()
+                index = todos.index(todo_to_edit)
+                todos[index] = new_todo
+                functions.write_todos(todos)
+                window['todos'].update(values=todos)
+            except IndexError:
+                sg.popup("Please select an item first.", font=("Helvetica", 20))
+        case "Complete":
+            try:
+                todo_to_complete = values['todos'][0]
+                todos = functions.get_todos()
+                todos.remove(todo_to_complete)
+                functions.write_todos(todos)
+                window['todos'].update(values=todos)
+                window['todo'].update(value='')
+            except IndexError:
+                sg.popup("Please select an item first.", font=("Cooper Black", 20))
+        case "Exit":
+            break
+        case 'todos':
+            window['todo'].update(value=values['todos'][0])
+        case sg.WIN_CLOSED:
+            break
 
-# Create a frame for the buttons
-button_frame = tk.Frame(window)
-button_frame.pack(side=tk.RIGHT, padx=10, pady=10)
-
-# Create a button to add a new item
-add_button = tk.Button(button_frame, text="Add", command=start_todo)
-add_button.pack(side=tk.TOP, pady=5)
-
-# Create a button to edit an existing item
-edit_button = tk.Button(button_frame, text="Edit", command=start_todo)
-edit_button.pack(side=tk.TOP, pady=5)
-
-# Create a button to remove an existing item
-remove_button = tk.Button(button_frame, text="Remove", command=start_todo)
-remove_button.pack(side=tk.TOP, pady=5)
-
-# Create a button to mark an item as completed
-complete_button = tk.Button(button_frame, text="Complete", command=start_todo)
-complete_button.pack(side=tk.TOP, pady=5)
-
-# Start the GUI event loop
-window.mainloop()
-
+window.close()
