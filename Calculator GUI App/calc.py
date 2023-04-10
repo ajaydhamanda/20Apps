@@ -5,7 +5,7 @@ sg.theme('BlueMono')
 sg.set_options(font = 'Franklin 20', button_element_size=(5, 3))
 button_size = (6,3)
 layout = [
-    [sg.Text('', font = 'Franklin 24', justification = 'center', expand_x = True, pad =(10,40), key = 'text')],
+    [sg.Text('', font = 'Franklin 14', justification = 'center', expand_x = True, pad =(10,40), key = 'text')],
     [sg.Button('Clear', size = (13,3)), sg.Button('=', expand_x=True)],
     [sg.Button(7, size = button_size), sg.Button(8, size = button_size), sg.Button(9, size = button_size), sg.Button('+', size = button_size)],
     [sg.Button(4, size = button_size), sg.Button(5, size = button_size), sg.Button(6, size = button_size), sg.Button('-', size = button_size)],
