@@ -1,13 +1,13 @@
-this repo is for my own use- 
+Here's an edited version of the text that you can use for the `README.md` file in your Git repository:
 
-creating a variety of apps from different sources
+```
+# python.apps
 
-sources used till now - 
+This repository is for my own use to create a variety of apps using different sources.
 
-ardit sulce - udemy
-
-freecodecamp (youtube) & website for following along
-
-programming hero (youtube) - voice assistant 
-
-clear code (youtube)  - weather app
+Sources used till now:
+- Ardit Sulce - Udemy
+- freeCodeCamp (YouTube) & website for following along
+- Programming Hero (YouTube) - Voice Assistant
+- Clear Code (YouTube) - Weather App
+```
